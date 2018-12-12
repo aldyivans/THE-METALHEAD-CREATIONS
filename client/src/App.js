@@ -21,13 +21,15 @@ class App extends Component {
       username: '',
       avatar: '',
       fullname: '',
-      forums: []
+      forums: [],
+      user: []
     }
   }
 
   componentDidMount() {
     console.log("hahay", this)
     this.getUserData();
+    this.getAllUsers();
     this.getAllPosts();
   }
 
@@ -44,6 +46,12 @@ class App extends Component {
     })
     .catch( err => {
       console.log('error', err)
+    })
+  }
+
+  getAllUsers() {
+    axios.get('/user').then(res => {
+      console.log('user',res)
     })
   }
 

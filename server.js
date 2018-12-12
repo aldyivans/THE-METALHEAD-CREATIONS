@@ -7,7 +7,9 @@ const FieldValue = admin.firestore.FieldValue;
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const serviceAccount = require('./the-metalhead-creations-firebase-adminsdk-m1fti-ff08449fef.json');
+const app = express();
 
+app.use(express.static(__dirname));
 
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
@@ -19,7 +21,7 @@ const storage = multer.diskStorage({
 });
  
 const fileFilter = (req, file, cb) => {
-	if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+	if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'video/mp4') {
 		cb(null, true);
 	} else {
 		cb(null, false);
@@ -32,7 +34,7 @@ const upload = multer({
 		fileSize: 1024 * 1024 * 5
 	},
   fileFilter: fileFilter
-}).single("avatar");
+}).single("picture");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -48,7 +50,6 @@ const docRefHorns = db.collection('horns');
 const docRefReplyComment = db.collection('replyComments');
 const docRefMessage = db.collection('message');
 
-const app = express();
 
 const PORT = process.env.PORT || 3001;
 
@@ -118,7 +119,7 @@ app.post('/login', (req, res) => {
 	});
 })
 
-app.post('/user/upload/:id',(req,res) => {
+app.post('/user/upload/',(req,res) => {
   upload(req, res, (err) => {
   	if (err) {
   		console.log(err)
@@ -230,7 +231,8 @@ app.post('/forum', (req, res) => {
 		userId: req.body.userId,
 		avatar: req.body.avatar,
 		username: req.body.username,
-	  topic: req.body.topic
+	  topic: req.body.topic,
+	  picture: req.body.picture
 	}).then(ref => {
 		res.status(200).json({
 			message: 'success'
@@ -289,7 +291,6 @@ app.post('/forum/upload/', (req, res) => {
 	  		imageUrl: imgUrl
 	  	})
   	}
-
   })
 })
 

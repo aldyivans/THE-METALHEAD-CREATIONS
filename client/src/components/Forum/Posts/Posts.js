@@ -65,6 +65,9 @@ class Posts extends Component {
 								<p className="m-0">{forum.data.topic}</p>
 							</div>
 							<div>
+								<img src={forum.data.picture} style={{width: "100%"}} />
+							</div>
+							<div>
 								<PeopleReactCounter commentCount={this.state.commentCount} id={forum.id} username={this.props.username} avatar={this.props.avatar}/>
 								<CommentForm commentAdded={this.commentAdded.bind(this)} userId={forum.data.userId} id={forum.id} username={this.props.username} avatar={this.props.avatar}/>
 							</div>

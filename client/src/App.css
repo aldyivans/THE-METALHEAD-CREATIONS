@@ -41,7 +41,19 @@ label:focus,
 	position: relative;
 }
 
-.ava img, .ava-profile img {
+.picture {
+	width: 100px;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
+	background-color: #ccc;
+	margin: 1rem;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.ava img, .ava-profile img, .picture img {
 	height: 100%;
 	position: absolute;
 	top: 50%;
@@ -103,4 +115,25 @@ label:focus,
 
 .message-icon {
 	width: 37px;
+}
+
+.pic-list {
+	overflow-x: auto;
+	display: none;
+	border-top: 1px solid #ccc;
+}
+
+.fa-spin {
+	width: 20px;
+	animation: fa-spin 2s infinite linear;
+	z-index: -1;
+}
+
+@keyframes fa-spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(300deg);
+	}
 }
